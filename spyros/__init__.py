@@ -31,7 +31,11 @@ sem = nanops.sem
 skew = nanops.nanskew
 kurt = nanops.nankurt
 
-# Transforming functions
+# Reducing two-argument functions
+cov = nanops.nancov
+corr = nanops.nancorr
+
+# Element-wise functions
 gt = nanops.nangt
 ge = nanops.nange
 lt = nanops.nanlt
@@ -70,7 +74,3 @@ def cummin(arr, axis=0):
 	np.minimum.accumulate(out, axis=axis, out=out)
 	out[out==np.Inf]=np.nan
 	return out
-
-# Pairwise functions
-cov = nanops.nancov
-corr = nanops.nancorr
