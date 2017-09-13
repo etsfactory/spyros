@@ -1,5 +1,5 @@
 import numpy as np
-import bottleneck as bn
+import bottleneck as bn  # requires bottleneck >= 1.2.0
 import pandas.core.nanops as nanops
 
 # Function are basically picked from distinct sources
@@ -27,7 +27,7 @@ median = bn.nanmedian
 ss = bn.ss
 anynan = bn.anynan
 allnan = bn.allnan
-sem = nanops.sem
+sem = nanops.nansem
 skew = nanops.nanskew
 kurt = nanops.nankurt
 
@@ -42,13 +42,13 @@ lt = nanops.nanlt
 le = nanops.nanle
 eq = nanops.naneq
 ne = nanops.nanne
-	
+
 # Moving window functions
 movsum = bn.move_sum
 movmean = bn.move_mean
 movstd = bn.move_std
 movvar = bn.move_var
-movmin = bn.move_min, 
+movmin = bn.move_min,
 movmax = bn.move_max
 movargmin = bn.move_argmin
 movargmax = bn.move_argmax
@@ -59,18 +59,20 @@ movrank = bn.move_rank
 cumsum = np.nancumsum
 cumprod = np.nancumprod
 
+
 def cummax(arr, axis=0):
-	out = arr.copy()
-	mask = np.isnan(arr)
-	out[mask] = -np.Inf
-	np.maximum.accumulate(out, axis=axis, out=out)
-	out[out==-np.Inf]=np.nan
-	return out
+    out = arr.copy()
+    mask = np.isnan(arr)
+    out[mask] = -np.Inf
+    np.maximum.accumulate(out, axis=axis, out=out)
+    out[out == -np.Inf] = np.nan
+    return out
+
 
 def cummin(arr, axis=0):
-	out = arr.copy()
-	mask = np.isnan(arr)
-	out[mask] = np.Inf
-	np.minimum.accumulate(out, axis=axis, out=out)
-	out[out==np.Inf]=np.nan
-	return out
+    out = arr.copy()
+    mask = np.isnan(arr)
+    out[mask] = np.Inf
+    np.minimum.accumulate(out, axis=axis, out=out)
+    out[out == np.Inf] = np.nan
+    return out
