@@ -1,20 +1,24 @@
 import numpy as np
 import bottleneck as bn
+import pandas.core.nanops as nanops
 
 # Function are basically picked from distinct sources
 # 1. Bottleneck functions
 # Reference: http://berkeleyanalytics.com/bottleneck/reference.html
 # 2. Numpy functions
 # Reference: https://docs.scipy.org/doc/numpy/reference/routines.math.html
-# 3. Those that are not available out there, require custom implementations:
+# 3. Pandas nanops module functions (for many, it is just a wrapper of bottleneck)
+# Reference: https://github.com/pandas-dev/pandas/blob/master/pandas/core/nanops.py
+# END. Those that are not available out there, require custom implementations:
 # Take a look at https://docs.scipy.org/doc/numpy-1.13.0/reference/ufuncs.html#methods for ideas using numpy ufunc's
 
 ## Function implementation starts here
-# Reduce functions
+# Reducing functions
 mean = bn.nanmean
 std = bn.nanstd
 var = bn.nanvar
 sum = bn.nansum
+prod = nanops.nanprod
 max = bn.nanmax
 min = bn.nanmin
 argmax = bn.nanargmax
@@ -23,6 +27,17 @@ median = bn.nanmedian
 ss = bn.ss
 anynan = bn.anynan
 allnan = bn.allnan
+sem = nanops.sem
+skew = nanops.nanskew
+kurt = nanops.nankurt
+
+# Transforming functions
+gt = nanops.nangt
+ge = nanops.nange
+lt = nanops.nanlt
+le = nanops.nanle
+eq = nanops.naneq
+ne = nanops.nanne
 	
 # Moving window functions
 movsum = bn.move_sum
