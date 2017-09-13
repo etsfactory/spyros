@@ -71,3 +71,6 @@ def cummin(arr, axis=0):
 	out[out==np.Inf]=np.nan
 	return out
 
+# Pairwise functions
+cov = nanops.nancov
+corr = nanops.nancorr
