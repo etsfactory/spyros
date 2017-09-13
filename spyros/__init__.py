@@ -2,7 +2,7 @@ import numpy as np
 import bottleneck as bn  # requires bottleneck >= 1.2.0
 import pandas.core.nanops as nanops
 
-# Function are basically picked from distinct sources
+# Functions in this module are basically picked from distinct sources:
 # 1. Bottleneck functions
 # Reference: http://berkeleyanalytics.com/bottleneck/reference.html
 # 2. Numpy functions
