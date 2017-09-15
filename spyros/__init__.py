@@ -30,6 +30,7 @@ allnan = bn.allnan
 sem = nanops.nansem
 skew = nanops.nanskew
 kurt = nanops.nankurt
+percentile = np.nanpercentile
 
 # Reducing two-argument functions
 cov = nanops.nancov
