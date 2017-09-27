@@ -9,6 +9,9 @@ import pandas.core.nanops as nanops
 # Reference: https://docs.scipy.org/doc/numpy/reference/routines.math.html
 # 3. Pandas nanops module functions (for many, it is just a wrapper of bottleneck)
 # Reference: https://github.com/pandas-dev/pandas/blob/master/pandas/core/nanops.py
+# 4. Scipy.stats operations for unmasked and masked arrays
+# - https://docs.scipy.org/doc/scipy-0.16.0/reference/stats.html#statistical-functions
+# - https://docs.scipy.org/doc/scipy-0.16.1/reference/stats.mstats.html
 # END. Those that are not available out there, require custom implementations:
 # Take a look at https://docs.scipy.org/doc/numpy-1.13.0/reference/ufuncs.html#methods for ideas using numpy ufunc's
 
