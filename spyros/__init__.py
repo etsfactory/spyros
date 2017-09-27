@@ -51,13 +51,9 @@ ne = nanops.nanne
 movsum = bn.move_sum
 movmean = bn.move_mean
 movstd = bn.move_std
-movvar = bn.move_var
-movmin = bn.move_min,
+movmin = bn.move_min
 movmax = bn.move_max
-movargmin = bn.move_argmin
-movargmax = bn.move_argmax
 movmedian = bn.move_median
-movrank = bn.move_rank
 
 # Expanding window functions
 cumsum = np.nancumsum
