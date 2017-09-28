@@ -1,19 +1,24 @@
+"""Functions in this module are basically picked from distinct sources:
+
+References
+----------
+1. Bottleneck functions : http://berkeleyanalytics.com/bottleneck/reference.html
+2. Numpy functions : https://docs.scipy.org/doc/numpy/reference/routines.math.html
+3. Pandas nanops module functions (for many, it is just a wrapper of
+  bottleneck) : https://github.com/pandas-dev/pandas/blob/master/pandas/core/nanops.py
+4. Scipy.stats operations for unmasked and masked arrays :
+  - https://docs.scipy.org/doc/scipy-0.16.0/reference/stats.html#statistical-functions
+  - https://docs.scipy.org/doc/scipy-0.16.1/reference/stats.mstats.html
+
+Those that are not available out there, require custom implementations:
+Take a look at
+https://docs.scipy.org/doc/numpy-1.13.0/reference/ufuncs.html#methods for ideas
+using numpy ufunc's.
+"""
+
 import numpy as np
 import bottleneck as bn  # requires bottleneck >= 1.2.0
 import pandas.core.nanops as nanops
-
-# Functions in this module are basically picked from distinct sources:
-# 1. Bottleneck functions
-# Reference: http://berkeleyanalytics.com/bottleneck/reference.html
-# 2. Numpy functions
-# Reference: https://docs.scipy.org/doc/numpy/reference/routines.math.html
-# 3. Pandas nanops module functions (for many, it is just a wrapper of bottleneck)
-# Reference: https://github.com/pandas-dev/pandas/blob/master/pandas/core/nanops.py
-# 4. Scipy.stats operations for unmasked and masked arrays
-# - https://docs.scipy.org/doc/scipy-0.16.0/reference/stats.html#statistical-functions
-# - https://docs.scipy.org/doc/scipy-0.16.1/reference/stats.mstats.html
-# END. Those that are not available out there, require custom implementations:
-# Take a look at https://docs.scipy.org/doc/numpy-1.13.0/reference/ufuncs.html#methods for ideas using numpy ufunc's
 
 ## Function implementation starts here
 # Reducing functions
@@ -65,6 +70,17 @@ cumprod = np.nancumprod
 
 
 def cummax(arr, axis=0):
+    """Cumulative max (in an expanding window).
+
+    Parameters
+    ----------
+    arr : ND-array
+    axis : int
+
+    Returns
+    -------
+    cummax : ND-array
+    """
     out = arr.copy()
     mask = np.isnan(arr)
     out[mask] = -np.Inf
@@ -74,6 +90,17 @@ def cummax(arr, axis=0):
 
 
 def cummin(arr, axis=0):
+    """Cumulative min (in an expanding window).
+
+    Parameters
+    ----------
+    arr : ND-array
+    axis : int
+
+    Returns
+    -------
+    cummin : ND-array
+    """
     out = arr.copy()
     mask = np.isnan(arr)
     out[mask] = np.Inf
