@@ -70,7 +70,7 @@ cumprod = np.nancumprod
 
 
 def cummax(arr, axis=0):
-    """Cumulative max for each expanding window.
+    """Cumulative max (in an expanding window).
 
     Parameters
     ----------
@@ -90,7 +90,7 @@ def cummax(arr, axis=0):
 
 
 def cummin(arr, axis=0):
-    """Cumulative min for each expanding window.
+    """Cumulative min (in an expanding window).
 
     Parameters
     ----------
