@@ -17,9 +17,13 @@ nancumlast = nanlast.accumulate
             float32(float32, float32),
             float64(float64, float64)])
 def nansum(a, b):
-    return a if np.isnan(b) else a + b
+    a = 0 if np.isnan(a) else a
+    b = 0 if np.isnan(b) else b
+    return a + b
 
-nancumsum = nansum.accumulate
+nancumsum = nansum.accumulate 
+# bug: when running accumulate, the ufunc is not executed for the first element of the array, instead the
+# first element of the output is set to the first element of the input array
 
 
 ## Functions using numbagg decorators (experimental but interesting approach, not sure if the same can be replicated using numba alone)
