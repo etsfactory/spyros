@@ -25,6 +25,8 @@ nancumsum = nansum.accumulate
 # bug: when running accumulate, the ufunc is not executed for the first element of the array, instead the
 # first element of the output is set to the first element of the input array
 
+# It is also possible to create Generalized Universal Functions (https://docs.scipy.org/doc/numpy/reference/c-api.generalized-ufuncs.html)
+# by means of the guvectorize decorator (http://numba.pydata.org/numba-doc/latest/user/vectorize.html#the-guvectorize-decorator)
 
 ## Functions using numbagg decorators (experimental but interesting approach, not sure if the same can be replicated using numba alone)
 from numbagg.decorators import ndreduce, ndmoving # pip install git+https://github.com/shoyer/numbagg.git
