@@ -37,7 +37,7 @@ def _nancumlast(a, window, out=None):
             val = ai
         out[i] = ai
         
-def nancumlast(a, axis=None):
+def nancumlast2(a, axis=None):
     out = _nancumlast(a, window=1, axis=axis)
     return out.T if axis==0 else out
     
@@ -51,6 +51,6 @@ def _nancumsum(a, window, out=None):
             asum += ai
         out[i] = asum
         
-def nancumsum(a, axis=0):
+def nancumsum2(a, axis=0):
     out = _nancumsum(a, window=1, axis=axis)
     return out.T if axis==0 else out
