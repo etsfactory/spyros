@@ -17,7 +17,7 @@ nancumlast = nanlast.accumulate
             float32(float32, float32),
             float64(float64, float64)])
 def nansum(a, b):
-    return a if np.isnan(b) else b
+    return a if np.isnan(b) else a + b
 
 nancumsum = nansum.accumulate
 
