@@ -1,4 +1,18 @@
 import numpy as np
+from numba import vectorize, guvectorize, int32, int64, float32, float64
+
+# http://numba.pydata.org/numba-doc/latest/reference/jit-compilation.html#vectorized-functions-ufuncs-and-dufuncs
+@vectorize([int32(int32, int32),
+            int64(int64, int64),
+            float32(float32, float32),
+            float64(float64, float64)])
+def nansum(a, b):
+    return a + b
+
+nancumsum = nansum.accumulate
+
+
+##################################### Other interesting approach #########################################
 from numbagg.decorators import ndreduce, ndmoving # pip install git+https://github.com/shoyer/numbagg.git
 
 @ndmoving
