@@ -17,6 +17,8 @@ References
 4. Scipy.stats operations for unmasked and masked arrays :
   - https://docs.scipy.org/doc/scipy-0.16.0/reference/stats.html#statistical-functions
   - https://docs.scipy.org/doc/scipy-0.16.1/reference/stats.mstats.html
+5. Some less common functionalities are implemented as Numpy's ufuncs in the scipy.special module:
+  - https://docs.scipy.org/doc/scipy/reference/special.html
 
 Those that are not available out there, require custom implementations:
 Take a look at
