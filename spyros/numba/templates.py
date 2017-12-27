@@ -1,5 +1,6 @@
 from numba import guvectorize
 import numpy as np
+import pandas as pd
 
 
 NUMBA_SIGNATURE_LIST = ['void(int32[:],int32[:])',
@@ -24,6 +25,9 @@ TRANSFORM_NUMPY_SIGNATURE = '(n)->(n)'
 # http://numba.pydata.org/numba-doc/dev/reference/jit-compilation.html#numba.guvectorize
 # What does nopython mean?
 # http://numba.pydata.org/numba-doc/dev/glossary.html#term-nopython-mode
+# Why ufuncs perform automatic wrapping when called with pandas objects? 
+# Because they implement __array__ and __array_wrap__ (useful in transform-type functions)
+# https://docs.scipy.org/doc/numpy/reference/arrays.classes.html
 
 ################################################################################
 # Example of a reduce-type function
@@ -44,6 +48,7 @@ def nansum(arr, axis=0):
     return _nansum(arr)
 
 
+
 ################################################################################
 # Example of a resize-type function
 ################################################################################
@@ -53,12 +58,12 @@ def _foo(a, out):
     for i in range(len(a)):
         out[i] = a[i]
 
-
+        
 def foo(arr, axis=0):
     all_axes = [n for n in range(arr.ndim) if n != axis] + [axis]
     arr = arr.transpose(all_axes)
     new_shape = list(arr.shape)
-    new_shape[-1] += 3  # alter dimensions however you want
+    new_shape[-1] += 1  # alter dimensions however you want
     out = np.empty(new_shape)  # pre-allocate output array
     _foo(arr, out)  # fill output array according to computation
     out = np.moveaxis(out, -1, axis)
@@ -104,7 +109,10 @@ def cum_returns(arr):  # axis = 0 only
 ################################################################################
 # Example of a transform-type function
 ################################################################################
-
+@guvectorize(NUMBA_SIGNATURE_LIST, TRANSFORM_NUMPY_SIGNATURE, nopython=False)
+def abs(a, out):
+    for i in range(len(a)):
+        out[i] = np.abs(a[i])
 
 
 ################################################################################
@@ -117,8 +125,14 @@ if __name__ == "__main__":
     print(out)
     out = foo(A, axis=0)
     print(out)
-    
+
     a = np.array([np.nan, 0.01, np.nan, np.nan, 0.02, -0.02, -0.01, np.nan, 0.01])
     out = np.empty(a.shape[0]+1)
-    _cum_returns(a, out)
+    out = cum_returns(a)
     print(np.round(out, 2))
+
+    # Note that ufuncs automatically use __array__ and call __array_wrap__ at the end
+    # This is ideal for transform-type functions
+    df = pd.DataFrame(np.random.randn(5, 3), columns=['A','B','C'])
+    df2 = abs(df)
+    print(df2)
